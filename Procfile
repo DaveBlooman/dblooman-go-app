@@ -1,1 +1,1 @@
-web: dblooman-go-app -port=8080
+web: dblooman-go-app -port=$PORT
