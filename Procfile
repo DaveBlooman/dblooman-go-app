@@ -1,1 +1,0 @@
-web: bin/dblooman-go-app -port=$PORT
