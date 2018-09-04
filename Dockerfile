@@ -1,10 +1,13 @@
-FROM golang:1.9.3-alpine3.6
-
-WORKDIR /go/src/app
-
+FROM golang:latest
+WORKDIR /go/src/github.com/dblooman/dblooman-go-app
 COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build .
 
-RUN go get -d -v ./...
+FROM alpine:latest
+RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 
-RUN go install -v ./...
-CMD ["app"]
+COPY --from=0 /go/src/github.com/dblooman/dblooman-go-app/dblooman-go-app .
+
+EXPOSE 8080
+
+CMD ["./dblooman-go-app"]
